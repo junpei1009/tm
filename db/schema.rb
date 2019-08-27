@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_044519) do
+ActiveRecord::Schema.define(version: 2019_08_27_053847) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -67,6 +67,29 @@ ActiveRecord::Schema.define(version: 2019_08_27_044519) do
     t.index [nil], name: "index_customers_on_deleted_at"
   end
 
+  create_table "disks", force: :cascade do |t|
+    t.integer "product_id"
+    t.string "disk_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jakets", force: :cascade do |t|
+    t.integer "product_id"
+    t.string "jaket_image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "order_histories", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "product_id"
+    t.integer "number"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "customer_id"
     t.string "payment"
@@ -76,6 +99,24 @@ ActiveRecord::Schema.define(version: 2019_08_27_044519) do
     t.integer "total_amount"
     t.integer "postage"
     t.integer "consumption_tax"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "format"
+    t.string "title"
+    t.integer "stock"
+    t.string "status"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sings", force: :cascade do |t|
+    t.integer "disk_id"
+    t.string "sing_name"
+    t.integer "sing_order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

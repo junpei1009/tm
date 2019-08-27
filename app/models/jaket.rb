@@ -1,0 +1,2 @@
+class Jaket < ApplicationRecord
+end
