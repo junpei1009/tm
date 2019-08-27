@@ -1,0 +1,2 @@
+class ProductAritist < ApplicationRecord
+end
