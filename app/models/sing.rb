@@ -1,0 +1,2 @@
+class Sing < ApplicationRecord
+end
