@@ -1,54 +1,57 @@
 Rails.application.routes.draw do
-  namespace :admins do
-    get 'orders/index'
-    get 'orders/each_index'
-    get 'orders/show'
+
+#管理者　顧客購入履歴関係
+  scope module: :admins do
+    get 'admins/orders' => 'orders#index'
+    get 'admins/customers/customer_id/orders' => 'orders#each_index'
+    get 'admins/customers/customer_id/orders/:id' => 'orders#show'
   end
+
+#管理者　顧客情報関係
   namespace :admins do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-    get 'customers/update'
-    get 'customers/destroy'
+    resources :customers, only: [:index, :show, :edit, :update]
   end
-  get 'admins/top'
-  namespace :customers do
+
+#管理者　ログイン後画面
+    get 'admins/top' => 'admins#top'
+
+#管理者　商品関連
+  namespace :admins do
+    resources :products
+  end
+
+  
+
+#顧客 カート関連
+  scope module: :customers do
+    resources :carts, only: [:index, :destroy, :update, :create]
+  end
+
+#顧客 配送先関連
+  scope '/customers/:customer_id' do
+    resources :deliveries, only: [:index, :destroy, :edit, :update]
+  end
+
+#顧客　顧客情報
+  resources :customers
+
+#顧客　注文関係
+  scope module: :customers do
     get 'orders/new'
     get 'orders/confirm'
-    get 'orders/create'
-    get 'orders/thanks'
-    get 'orders/index'
-    get 'orders/show'
+    post 'orders'
+    get 'customers/orders' => 'orders#index'
+    get 'customers/orders/:id' => 'orders#show'
   end
-  namespace :customers do
-    get 'carts/index'
-    get 'carts/destroy'
-    get 'carts/update'
-    get 'carts/create'
-  end
-  get 'deliveries/index'
-  get 'deliveries/destroy'
-  get 'deliveries/edit'
-  get 'deliveries/update'
-  get 'customers/show'
-  get 'customers/edit'
-  get 'customers/update'
-  get 'customers/acount'
-  get 'customers/destroy'
+
+#顧客　商品関連
+  root :to => 'customers/products#index'
+  get '/products/:id' => 'customers/products#show'
+
+#顧客・管理者　店舗情報
   get 'shops/show'
-  namespace :admins do
-    get 'products/new'
-    get 'products/index'
-    get 'products/show'
-    get 'products/create'
-    get 'products/edit'
-    get 'products/update'
-    get 'products/destroy'
-  end
-  namespace :customers do
-    get 'products/index'
-    get 'products/show'
-  end
+
+#管理者　顧客　ログイン認証
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',
     passwords:     'admins/passwords',
