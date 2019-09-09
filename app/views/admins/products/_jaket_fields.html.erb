@@ -1,0 +1,9 @@
+<div class="nested-fields form-inline">
+  <div class="form-group">
+
+    <%= f.label :image, "ジャケット画像" %>
+    <%= f.attachment_field :image, class:"input-default" %>
+
+    <%= link_to_remove_association "ジャケット画像を削除", f, class: "remove-link" %>
+  </div>
+</div>

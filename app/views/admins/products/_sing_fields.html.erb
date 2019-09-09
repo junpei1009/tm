@@ -1,0 +1,11 @@
+<div class="nested-fields form-inline">
+  <div class="form-group">
+    <%= f.label :sing_order, "曲順"%>
+    <%= f.number_field :sing_order, class: "input-default" %>
+
+    <%= f.label :sing_name, "曲名" %>
+    <%= f.text_field :sing_name, class: "input-default" %>
+
+    <%= link_to_remove_association "曲を削除", f, class: "remove-link" %>
+  </div>
+</div>

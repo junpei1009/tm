@@ -80,3 +80,5 @@ gem 'cocoon'
 # 画像関係
 gem 'refile', require: "refile/rails", github: 'manfe/refile'
 gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
+
+gem 'pry-byebug'

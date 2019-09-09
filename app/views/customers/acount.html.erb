@@ -1,0 +1,8 @@
+<%= render 'header' %>
+<div class='container'>
+
+  <h2><%= current_customer.first_name %>さんマジで退会するん？</h2>
+  <%= link_to '退会する', customer_path(current_customer), class: 'btn-primary btn-default', method: :delete %>
+  <%= link_to 'いいえ', customer_path(current_customer), class: 'btn-primary btn-default' %>
+
+</div>

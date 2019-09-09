@@ -1,0 +1,80 @@
+<%= render 'admins/header' %>
+<div class="container">
+  <h1>商品詳細</h1>
+  <div class='card top'>
+    <div class="row top">
+      <div class="col-md-3">
+        <% @product.jakets.each do |jaket| %>
+        <%= attachment_image_tag jaket, :image, :fill, 250, 250, class:"product-image" %>
+        <% end %>
+      </div>
+      <h3 class="col-md-7">
+        <div class='title-format'>【CD<%= @product.format%>】<br/>
+        <%= @product.title %></div>
+        <% @product.artists.each do |artist| %>
+        <div class='artist-name'>
+          <%= artist.artist_name %>
+        </div>
+        <% end %>
+      </h3>
+      <div class="col-md-2">
+        <div class='card price-status'>
+          <p class="price-top">価格(税込) ¥<%= (@product.price * 1.08).to_i %></p>
+          <% if @product.stock != 0 %>
+          <p>在庫あり <%= @product.stock %>個</p>
+          <% else %>
+          <p>在庫切れ</p>
+          <% end %>
+          <div class="admin-box">
+            <div><%= link_to "商品を編集", edit_admins_product_path(@product), class: "btn btn-primary"%>
+            <div><%= link_to "商品を削除", admins_product_path(@product), method: :delete, class: "btn btn-danger"%></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card bottom">
+    <div class="row under">
+      <div class="col-md-4">
+        <h3 class="product-show-head">商品情報</h3>
+        <table>
+          <tbody>
+            <tr class="active">
+              <th class="product-th">フォーマット</th>
+              <td class="product-td">CD<%= @product.format %></td>
+            </tr>
+            <tr>
+              <th class="product-th">レーベル</th>
+              <% @product.labels.each do |label| %>
+              <td class="product-td"><%= label.label_name %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th class="product-th">構成数</th>
+              <td class="product-td"><%= @product.disks.length %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="product-infomation">
+        <h3 class="product-show-head">収録情報</h3>
+        <table>
+          <tbody>
+            <tr class="active">
+              <th class="product-th">曲順</th>
+              <th class="product-th">曲名</th>
+            </tr>
+            <% @product.disks.each do |disk| %>
+              <% disk.sings.each do |sing| %>
+                <tr>
+                  <td class="product-td"><%= sing.sing_order %></td>
+                  <td class="product-td"><%= sing.sing_name %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
