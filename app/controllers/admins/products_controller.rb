@@ -48,4 +48,8 @@ class Admins::ProductsController < ApplicationController
     params.require(:product).permit(:format, :title, :stock, :status, :price, disks_attributes: [:id, :disk_name, :product_id, :_destroy, sings_attributes: [:id, :disk_id, :sing_name, :sing_order, :_destroy]], artist_products_attributes: [:id, :product_id, :artist_id, :_destroy, artist_attributes: [:id, :artist_name, :destroy]], labels_attributes: [:id, :product_id, :label_name, :_destroy], genre_products_attributes: [:id, :product_id, :genre_id, :_destroy, genre_attributes: [:id, :genre_name, :_destroy]], jakets_attributes: [:id, :image, :product_id, :_destroy])
   end
 
+  def artist_params
+    params.require(:artist).permit(:artist_name)
+  end
+
 end
