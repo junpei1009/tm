@@ -1,0 +1,35 @@
+<header class="navbar navbar-fixed-top">
+  <div class="container">
+    <nav class="nav navbar-nav nav-left">
+      <span class="Timemachine">Timemachine</span>
+    </nav>
+    <nav>
+      <ul class="nav navbar-right">
+          <% if admin_signed_in? %>
+          <li class="item">
+            <%= link_to '　顧客一覧　', admins_customers_path %>
+          </li>
+          <li class="item">
+            <%= link_to '　商品一覧　', admins_products_path %>
+          </li>
+          <li class="item">
+            <%= link_to '　商品登録　', new_admins_product_path %>
+          </li>
+          <li class="item">
+            <%= link_to "　購入履歴一覧　", admins_orders_path %>
+          </li>
+          <li class="item">
+            <%= link_to '　店舗情報　', shops_show_path %>
+          </li>
+          <li class="item">
+            <%= link_to '　ログアウト　', destroy_admin_session_path %>
+          </li>
+          <% else %>
+          <li class="item">
+            <%= link_to "　ログイン　", new_admin_session_path %>
+          </li>
+          <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

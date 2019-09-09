@@ -1,2 +1,7 @@
-<h1>Admins::Products#new</h1>
-<p>Find me in app/views/admins/products/new.html.erb</p>
+<%= render "admins/header" %>
+  <div class="container">
+    <h2 class="form-head">商品の情報を入力して下さい</h2>
+    <div class="form-new">
+      <%= render "form", product: @product %>
+    </div>
+  </div>

@@ -1,3 +1,87 @@
 // Place all the styles related to the customers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+//ヘッダー
+header {
+  background-color: #BBFFFF;
+}
+
+.Timemachine {
+  font-family: 'Londrina Shadow';
+  font-size: 60px;
+}
+
+.item {
+  display: inline-block;
+}
+
+//顧客詳細ページ
+.customer-name {
+  text-align: center;
+  background-color: #C0C0C0;
+  padding: 20px;
+}
+
+.top-content  {
+  text-align: center;
+}
+.bottom-content{
+  text-align: center;
+}
+
+.left-top-content {
+  float: left;
+  background-color:
+  #C0C0C0; width: 500px;
+  height:250px;
+  padding: 50px;
+  margin: 10px
+}
+
+.fa-lock{
+  margin-top: 15px;
+  font-size: 100px;
+}
+
+.right-top-content{
+  float: right;
+  background-color: #C0C0C0;
+  width: 500px;
+  height:250px;
+  padding: 50px;
+  margin: 10px;
+}
+
+.fa-address-book{
+  margin-top: 15px;
+  font-size: 100px;
+}
+
+.bottom-left-content{
+  float: left;
+  background-color: #C0C0C0;
+  width: 500px;
+  height:250px;
+  padding: 50px;
+  margin: 10px;
+}
+
+.fa-user{
+  margin-top: 15px;
+  font-size: 100px;
+}
+
+.bottom-right-content{
+  float: right;
+  background-color: #C0C0C0;
+  width: 500px;
+  height:250px;
+  padding: 50px;
+  margin: 10px;
+}
+
+.fa-thumbs-down{
+  margin-top: 15px;
+  font-size: 100px;
+}

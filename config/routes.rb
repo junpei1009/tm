@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+#管理者　顧客　ログイン認証
+  devise_for :admins, controllers: {
+    sessions:      'admins/sessions',
+    passwords:     'admins/passwords',
+    registrations: 'admins/registrations'
+  }
+  devise_for :customers, controllers: {
+    sessions:      'customers/sessions',
+    passwords:     'customers/passwords',
+    registrations: 'customers/registrations'
+  }
 
 #管理者　顧客購入履歴関係
   scope module: :admins do
@@ -20,21 +31,6 @@ Rails.application.routes.draw do
     resources :products
   end
 
-  
-
-#顧客 カート関連
-  scope module: :customers do
-    resources :carts, only: [:index, :destroy, :update, :create]
-  end
-
-#顧客 配送先関連
-  scope '/customers/:customer_id' do
-    resources :deliveries, only: [:index, :destroy, :edit, :update]
-  end
-
-#顧客　顧客情報
-  resources :customers
-
 #顧客　注文関係
   scope module: :customers do
     get 'orders/new'
@@ -44,6 +40,20 @@ Rails.application.routes.draw do
     get 'customers/orders/:id' => 'orders#show'
   end
 
+#顧客 カート関連
+  scope module: :customers do
+    resources :carts, only: [:index, :destroy, :update, :create]
+  end
+
+#顧客 配送先関連
+  scope '/customers/:customer_id' do
+    resources :deliveries, only: [:index, :destroy, :edit, :update, :create]
+  end
+
+#顧客　顧客情報
+  resources :customers
+  get 'customers/:id/acount' => 'customers#acount'
+
 #顧客　商品関連
   root :to => 'customers/products#index'
   get '/products/:id' => 'customers/products#show'
@@ -51,16 +61,6 @@ Rails.application.routes.draw do
 #顧客・管理者　店舗情報
   get 'shops/show'
 
-#管理者　顧客　ログイン認証
-  devise_for :admins, controllers: {
-    sessions:      'admins/sessions',
-    passwords:     'admins/passwords',
-    registrations: 'admins/registrations'
-  }
-  devise_for :customers, controllers: {
-    sessions:      'customers/sessions',
-    passwords:     'customers/passwords',
-    registrations: 'customers/registrations'
-  }
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

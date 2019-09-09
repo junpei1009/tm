@@ -1,2 +1,47 @@
-<h1>Customers#show</h1>
-<p>Find me in app/views/customers/show.html.erb</p>
+<%= render 'header' %>
+
+<div class="container">
+  <div class="customer-name">
+    <strong>ユーザー名 <%= @customer.first_name %><%= @customer.last_name %></strong></br>
+    <strong>生年月日　<%= @customer.birthday %></strong>
+  </div>
+</div>
+
+<div class="container">
+  <div class="top-content clearfix">
+    <div class="left-top-content">
+      <%= link_to customers_orders_path(current_customer) do %>
+      購入履歴
+      <div class="container">
+        <i class="fas fa-lock"></i>
+      </div>
+　     <% end %>
+    </div>
+    <div class="right-top-content">
+      <%= link_to deliveries_path(current_customer) do %>
+      お届け先情報
+      <div class="container">
+        <i class="far fa-address-book"></i>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="bottom-content">
+    <div class="bottom-left-content">
+      <%= link_to edit_customer_path(current_customer) do %>
+      プロフィール変更
+      <div class="container">
+        <i class="fas fa-user"></i>
+      </div>
+      <% end %>
+    </div>
+    <div class="bottom-right-content">
+      <%= link_to '/customers/:id/acount' do %>
+      退会
+      <div class="container">
+        <i class="far fa-thumbs-down"></i>
+      </div>
+    </div>
+   <% end %>
+  </div>
+</div>

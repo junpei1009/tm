@@ -1,2 +1,63 @@
-<h1>Deliveries#index</h1>
-<p>Find me in app/views/deliveries/index.html.erb</p>
+<%= render 'customers/header' %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3">
+
+        <%= form_for(@delivery, url: deliveries_path) do |f| %>
+        <div class="field_row">
+          <%= f.label :postal_code, "郵便番号" %>
+          <%= f.text_field :postal_code %>
+        </div>
+        <div class="field_row">
+          <%= f.label :prefecture, "都道府県" %>
+          <%= f.text_field :prefecture %>
+        </div>
+        <div class="field_row">
+          <%= f.label :city, "市区町村" %>
+          <%= f.text_field :city %>
+        </div>
+        <div class="field_row">
+          <%= f.label :street_address, "町名・番地" %>
+          <%= f.text_field :street_address %>
+        </div>
+        <div class="field_row">
+          <%= f.label :building_name, "ビル・マンション名" %>
+          <%= f.text_field :building_name %>
+        </div>
+        <%= f.submit "登録", class: "btn-primary btn-default" %>
+        <% end %>
+
+
+      </div>
+
+  <div class="col-xs-9">
+    <table class="table table-hover table-inverse">
+  <thead>
+    <tr>
+      <th>郵便番号</th>
+      <th>都道府県</th>
+      <th>市区町村</th>
+      <th>町名・番地</th>
+      <th>ビル・マンション名</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+    <tbody>
+      <% @deliveries.each do |delivery| %>
+        <tr>
+          <td><%= delivery.postal_code %></td>
+          <td><%= delivery.prefecture %></td>
+          <td><%= delivery.city %></td>
+          <td><%= delivery.street_address %></td>
+          <td><%= delivery.building_name %></td>
+          <td><%= link_to '編集', edit_delivery_path(current_customer, delivery.id) %></td>
+          <td><%= link_to '削除', delivery_path(current_customer, delivery.id), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+  </div>
+</div>
+</div>

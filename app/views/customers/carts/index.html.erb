@@ -1,2 +1,49 @@
-<h1>Customers::Carts#index</h1>
-<p>Find me in app/views/customers/carts/index.html.erb</p>
+<%= render 'customers/header' %>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-8'>
+      <div class='row'>
+        <div class='col-md-3'></div>
+        <div class='col-md-9'></div>
+      </div>
+    </div>
+    <div class='col-md-4'></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<% if @carts.present? %>
+<div class="cart-wrapper">
+<% @carts.each do |cart| %>
+<% cart.product.jakets.each do |jacket| %>
+<% cart.product.artists.each do |artist| %>
+<%= attachment_image_tag jaket, :image, size: "100x100" %>
+<%= link_to root_path(cart.product.id) do %>
+<%= cart.product.title %>
+<% end %>
+<%= artist.artist_name %>
+<%= cart.product.format %>
+<%= cart.product.status %>
+<%= link_to "削除", cart_path(cart.id), method: :delete, class: "cart-delete-btn"%>
+<%= (cart.product.price * 1.08).to_i %>
+<%= form_for(cart) do |f| %>
+<%= f.number_field :quantity, class: "quantity-num" %>
+<%= f.submit "更新", class: "quantity-btn"%>
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+<% @carts.each do |cart| %>
+<% @price += (cart.product.price * 1.08).to_i * cart.quantity.to_i %>
+<% end %>
+<%= @price %>
+<% end %>
+
+<%= link_to "ショッピングを続ける", root_path, class: "btn btn-secondary" %>
+<%= link_to "購入手続き画面へ進む", "/", class: "btn btn-info" %>

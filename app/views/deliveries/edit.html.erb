@@ -1,2 +1,29 @@
-<h1>Deliveries#edit</h1>
-<p>Find me in app/views/deliveries/edit.html.erb</p>
+<%= render "customers/header" %>
+
+<div class="container">
+
+      <%= form_for(@delivery, url: delivery_path) do |f| %>
+      <div class="field_row">
+        <%= f.label :postal_code, "郵便番号" %>
+        <%= f.text_field :postal_code %>
+      </div>
+      <div class="field_row">
+        <%= f.label :prefecture, "都道府県" %>
+        <%= f.text_field :prefecture %>
+      </div>
+      <div class="field_row">
+        <%= f.label :city, "市区町村" %>
+        <%= f.text_field :city %>
+      </div>
+      <div class="field_row">
+        <%= f.label :street_address, "町名・番地" %>
+        <%= f.text_field :street_address %>
+      </div>
+      <div class="field_row">
+        <%= f.label :building_name, "ビル・マンション名" %>
+        <%= f.text_field :building_name %>
+      </div>
+      <%= f.submit "更新", class: "btn-primary btn-default" %>
+      <% end %>
+
+</div>

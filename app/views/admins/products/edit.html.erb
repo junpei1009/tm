@@ -1,2 +1,72 @@
-<h1>Admins::Products#edit</h1>
-<p>Find me in app/views/admins/products/edit.html.erb</p>
+<%= render "admins/header" %>
+  <div class="container">
+    <h2 class="form-head">商品の情報を入力して下さい</h2>
+    <div class="form-new">
+
+      <%= form_for @product, url: admins_product_path  do |f| %>
+        <div class="form-group">
+          <%= f.label :title, "タイトル名" %>
+          <%= f.text_field :title, class:"input-default" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :format, "フォーマット" %>
+          <%= f.select :format, [["シングル", "シングル"], ["アルバム", "アルバム"]], class:"input-default" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :stock, "在庫数" %>
+          <%= f.number_field :stock, class:"input-default" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :status, "ステータス" %>
+          <%= f.select :status, [["販売中", "販売中"], ["売り切れ", "売り切れ"]] %>
+        </div>
+        <div class="form-group">
+          <%= f.label :price, "価格" %>
+          <div class="price_form">
+            <%= f.number_field :price, class:"input-default" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.fields_for :artist_products do |artpro|%>
+          <%= render 'artist_product_fields', f: artpro %>
+          <% end %>
+          <div class="links">
+            <%= link_to_add_association "アーティストを追加", f, :artist_products %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.fields_for :genres do |genre| %>
+          <%= render 'genre_fields', f: genre %>
+          <% end %>
+          <div class="links">
+            <%= link_to_add_association "ジャンルを追加", f, :genres %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.fields_for :labels do |label| %>
+          <%= render 'label_fields', f: label %>
+          <% end %>
+          <div class="links">
+            <%= link_to_add_association "レーベルを追加", f, :labels %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.fields_for :disks do |disk| %>
+          <%= render 'disk_fields', f: disk %>
+          <% end %>
+          <div class="links">
+            <%= link_to_add_association "ディスクを追加", f, :disks %>
+          </div>
+        </div>
+        <div id="jaket">
+        <%= f.fields_for :jakets do |jaket| %>
+          <%= render "jaket_fields", f: jaket %>
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association "ジャケット画像を追加", f, :jakets, class: "add-link"  %>
+        </div>
+      </div>
+        <%= f.submit "商品追加", class: "btn-primary btn-default" %>
+      <% end %>
+    </div>
+  </div>
