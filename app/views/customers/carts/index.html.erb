@@ -1,49 +1,64 @@
 <%= render 'customers/header' %>
 
-<div class='container'>
-  <div class='row'>
-    <div class='col-md-8'>
-      <div class='row'>
-        <div class='col-md-3'></div>
-        <div class='col-md-9'></div>
+  <div class="container">
+    <h1>ショッピングカート</h1>
+      <% @carts.each do |cart| %>
+      <% current_customer.products.each do |product| %>
+        <div class='card top'>
+          <div class="row top">
+            <div class="col-md-3">
+              <% product.jakets.each do |jaket| %>
+                <%= attachment_image_tag jaket, :image, :fill, 200, 200, class:"product-image" %>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <h3 class='title-format'>【CD<%= product.format%>】<br/>
+                <%= product.title %>
+              </h3>
+              <div class='artist-name'>
+                <% product.artists.each do |artist| %>
+                  <p>アーティスト:<%= artist.artist_name %></p>
+                <% end %>
+               </div>
+            </div>
+            <div class="col-md-3">
+              <div class='card price-status'>
+                <p class="price-top">価格(税込) ¥<%= (product.price * 1.08).to_i %></p>
+                <div class='product-number'>
+                  <%= form_for cart, url: customer_cart_path(current_customer, cart) do |f| %>
+                    個数:<%= f.number_field :quantity, class: "quantity-num" %>
+                    <%= f.submit "更新", class: "quantity-btn"%>
+                  <% end %>
+                </div>
+                <div class='action'>
+                  <%= link_to 'カートから削除', customer_cart_path(current_customer.id, cart.id), method: :delete%>
+                </div>
+              </div>
+              <div class="price-total">
+                商品小計（税込)：
+                <span class="cart-price-value">
+                     <% @price = (product.price * 1.08).to_i * cart.quantity.to_i %>
+                ¥<%= @price %>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div></br>
+      <% end %>
+      <% end %>
+      <% if @carts.present? %>
+      <div class='buy-cds'>
+        <%= link_to '購入手続きに進む', orders_new_path, class:'btn btn-danger'%>
       </div>
-    </div>
-    <div class='col-md-4'></div>
+      <div class='continue-shopping'>
+        <%= link_to 'ショッピングを続ける', root_path, class:'btn btn-info' %>
+      </div>
+      <% else %>
+      <div class='card'>
+        <h2>カートが空です</h2>
+      </div>
+      <div class='shopping'>
+        <%= link_to 'ショッピングをする', root_path, class: 'btn btn-danger'%>
+      </div>
+      <% end %>
   </div>
-</div>
-
-
-
-
-
-
-
-<% if @carts.present? %>
-<div class="cart-wrapper">
-<% @carts.each do |cart| %>
-<% cart.product.jakets.each do |jacket| %>
-<% cart.product.artists.each do |artist| %>
-<%= attachment_image_tag jaket, :image, size: "100x100" %>
-<%= link_to root_path(cart.product.id) do %>
-<%= cart.product.title %>
-<% end %>
-<%= artist.artist_name %>
-<%= cart.product.format %>
-<%= cart.product.status %>
-<%= link_to "削除", cart_path(cart.id), method: :delete, class: "cart-delete-btn"%>
-<%= (cart.product.price * 1.08).to_i %>
-<%= form_for(cart) do |f| %>
-<%= f.number_field :quantity, class: "quantity-num" %>
-<%= f.submit "更新", class: "quantity-btn"%>
-<% end %>
-<% end %>
-<% end %>
-<% end %>
-<% @carts.each do |cart| %>
-<% @price += (cart.product.price * 1.08).to_i * cart.quantity.to_i %>
-<% end %>
-<%= @price %>
-<% end %>
-
-<%= link_to "ショッピングを続ける", root_path, class: "btn btn-secondary" %>
-<%= link_to "購入手続き画面へ進む", "/", class: "btn btn-info" %>

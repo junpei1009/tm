@@ -1,2 +1,58 @@
-<h1>Customers::Orders#new</h1>
-<p>Find me in app/views/customers/orders/new.html.erb</p>
+<%= render 'customers/header' %>
+
+<div class='container'>
+  <%= form_for @order, url: orders_path do |f| %>
+      <% current_customer.products.each do |product| %>
+      <div class='card'>
+        <h4>配送先</h4>
+          <%= f.select :shipping_address, current_customer.deliveries.all.map {|delivery| delivery.prefecture + delivery.city + delivery.street_address + delivery.building_name }%>
+      </div><br>
+      <div class='card'>
+        <h4>支払い方法</h4>
+        <%= f.select :payment, [['クレジットカード', 'クレジットカード'], ['代金引換', '代金引き換え'], ['コンビニ・ATM・ネットバンキング・電子マネー', 'コンビニ・ATM・ネットバンキング・電子マネー']] %>
+      </div><br>
+    <% current_customer.carts.each do |cart| %>
+      <%= f.hidden_field :delivery_status, value: '発送準備中' %>
+        <% @price += (product.price.to_i) * 1.08 * cart.quantity.to_i %>
+      <%= f.hidden_field :subtotal_amount, value: @price %>
+      <%= f.hidden_field :total_amount, value: (@price + 500).to_i %>
+      <%= f.hidden_field :postage, value: 500 %>
+      <%= f.hidden_field :consumption_tax, value: @price * 0.08 %>
+      <h3>注文内容を確認・変更</h3>
+        <div class='card'>
+          <div class='row'>
+          <div class='card'>
+            <h3>ご請求金額 ¥<%= (@price + 500).to_i %></h3>
+          </div>
+        </div>
+      </div>
+       <div class='card'>
+          <div class="row">
+            <div class="col-md-3">
+              <% cart.product.jakets.each do |jaket| %>
+                <%= attachment_image_tag jaket, :image, :fill, 200, 200, class:"product-image" %>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <h3 class='title-format'>【CD<%= cart.product.format%>】<br/>
+                <%= cart.product.title %>
+              </h3>
+              <div class='artist-name'>
+                <% cart.product.artists.each do |artist| %>
+                  <p>アーティスト:<%= artist.artist_name %></p>
+                <% end %>
+              </div>
+              <div class='quantity'>
+                個数: <%= cart.quantity %>個
+              </div>
+              <div class='subtotal_amount'>
+                価格: ¥<%= (cart.product.price * 1.08).to_i %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      <%= f.submit '購入する' %>
+    <% end %>
+  <% end %>
+</div>

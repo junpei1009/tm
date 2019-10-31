@@ -8,6 +8,7 @@ class Customer < ApplicationRecord
   has_many :orders
   has_many :deliveries, dependent: :destroy
   has_many :carts
+  has_many :products, through: :carts
 
   validates :first_name, presence: true
   validates :last_name, presence: true

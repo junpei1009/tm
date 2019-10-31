@@ -22,19 +22,19 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.fields_for :artist_products do |artpro| %>
-    <%= render 'artist_product_fields', f: artpro %>
+    <%= f.fields_for :artist_products do |artist_product| %>
+    <%= render 'artist_product_fields', f: artist_product %>
     <% end %>
     <div class="links">
       <%= link_to_add_association "アーティストを追加", f, :artist_products %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.fields_for :genres do |genre| %>
-    <%= render 'genre_fields', f: genre %>
+    <%= f.fields_for :genre_products do |genre_product| %>
+    <%= render 'genre_product_fields', f: genre_product %>
     <% end %>
     <div class="links">
-      <%= link_to_add_association "ジャンルを追加", f, :genres %>
+      <%= link_to_add_association "ジャンルを追加", f, :genre_products %>
     </div>
   </div>
   <div class="form-group">

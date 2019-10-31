@@ -1,2 +1,8 @@
-<h1>Customers::Orders#thanks</h1>
-<p>Find me in app/views/customers/orders/thanks.html.erb</p>
+<%= render 'customers/header' %>
+  <div class='container'>
+    <div class='row'>
+      <h1>まいど、お買い上げありがとうございます</h1>
+    </div>
+    <%= link_to '購入履歴', orders_path, class: 'btn btn-primary' %>
+    <%= link_to 'ショッピングをする', root_path, class: 'btn btn-danger'%>
+  </div>

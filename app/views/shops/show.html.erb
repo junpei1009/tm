@@ -1,2 +1,11 @@
-<h1>Shops#show</h1>
-<p>Find me in app/views/shops/show.html.erb</p>
+<% if customer_signed_in? %>
+  <%= render 'customers/header' %>
+<% else %>
+  <%= render 'admins/header' %>
+<% end %>
+
+<div class='container'>
+  <div class='row'>
+    <h3>店舗情報</h3>
+  </div>
+</div>

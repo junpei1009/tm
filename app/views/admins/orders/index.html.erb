@@ -1,3 +1,36 @@
 <%= render 'admins/header' %>
-<h1>Admins::Orders#index</h1>
-<p>Find me in app/views/admins/orders/index.html.erb</p>
+
+<div class='container'>
+  <% @orders.each do |order| %>
+    <% order.order_histories.each do |order_history| %>
+      <% order_history.product.jakets.each do |jaket| %>
+        <div class="card">
+          <div class="card-header">
+            <p>注文日: <%= order.created_at.strftime('%Y/%m/%d') %> 合計: ¥<%= order.total_amount %> 配送先: <%=order.shipping_address %> 購入者: <%= order.customer.first_name %><%= order.customer.last_name %> </p>
+          </div>
+          <div class="card-body">
+            <div calss='card'>
+              <div class='row'>
+                <div class='col-md-3'>
+                  <%= attachment_image_tag jaket, :image, :fill, 150, 150, class:"product-image" %>
+                </div>
+                <div class='col-md-6'>
+                  <p>【商品名】<%= order_history.product.title %></p>
+                  <p>購入個数 <%= order_history.number %></p>
+                  <p>税込価格 <%= (order_history.product.price * 1.08).to_i %></p>
+                </div>
+                <div class='col-md-3'>
+                  <p>配送状況:<%= order.delivery_status %></p>
+                  <%= form_for order, url: orders_update_path(order.id) do |f| %>
+                    <%= f.select :delivery_status, ['発送準備中', '発送済み', '受け取り済み'] %>
+                    <%= f.submit '更新', class: "btn-primary btn-default" %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

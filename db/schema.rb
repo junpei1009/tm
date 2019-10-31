@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_05_045527) do
+ActiveRecord::Schema.define(version: 2019_09_11_005744) do
 
   create_table "Genre_products", force: :cascade do |t|
     t.integer "product_id"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 2019_09_05_045527) do
   end
 
   create_table "artists", force: :cascade do |t|
-    t.integer "product_id"
     t.string "artist_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -105,7 +104,6 @@ ActiveRecord::Schema.define(version: 2019_09_05_045527) do
   end
 
   create_table "genres", force: :cascade do |t|
-    t.integer "product_id"
     t.string "genre_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

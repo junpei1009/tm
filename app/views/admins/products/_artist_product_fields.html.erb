@@ -1,6 +1,4 @@
 <div class="nested-fields form-inline">
   <%= f.collection_select :artist_id, Artist.all, :id, :artist_name %>
-  <div class="form-group">
-    <%= link_to_remove_association "アーティストを削除", f, class: "remove-link" %>
-  </div>
+  <%= link_to_remove_association "アーティストを削除", f, class: "remove-link" %>
 </div>
