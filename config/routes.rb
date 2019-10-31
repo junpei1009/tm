@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 #管理者　顧客購入履歴関係
   scope module: :admins do
     get 'admins/orders' => 'orders#index'
+    patch 'admin/orders/:id' => 'orders#update', as: 'orders_update'
     get 'admins/customers/customer_id/orders' => 'orders#each_index'
     get 'admins/customers/customer_id/orders/:id' => 'orders#show'
   end
@@ -35,15 +36,14 @@ Rails.application.routes.draw do
   scope module: :customers do
     get 'orders/new'
     get 'orders/confirm'
-    post 'orders'
-    get 'customers/orders' => 'orders#index'
-    get 'customers/orders/:id' => 'orders#show'
+    post 'orders/ok' => 'orders#ok'
+    post 'orders' => 'orders#create'
+    get 'orders' => 'orders#index'
+    get 'orders/:id' => 'orders#show'
+    get 'order/thanks' => 'orders#thanks'
   end
 
-#顧客 カート関連
-  scope module: :customers do
-    resources :carts, only: [:index, :destroy, :update, :create]
-  end
+
 
 #顧客 配送先関連
   scope '/customers/:customer_id' do
@@ -51,12 +51,18 @@ Rails.application.routes.draw do
   end
 
 #顧客　顧客情報
-  resources :customers
+
+  resources :customers do
+    scope module: :customers do
+      resources :carts, only: [:index, :create, :update, :destroy]
+    end
+  end
+
   get 'customers/:id/acount' => 'customers#acount'
 
 #顧客　商品関連
   root :to => 'customers/products#index'
-  get '/products/:id' => 'customers/products#show'
+  get '/products/:id' => 'customers/products#show', as: 'product'
 
 #顧客・管理者　店舗情報
   get 'shops/show'

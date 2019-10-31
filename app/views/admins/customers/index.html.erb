@@ -1,2 +1,26 @@
-<h1>Admins::Customers#index</h1>
-<p>Find me in app/views/admins/customers/index.html.erb</p>
+<%= render 'admins/header' %>
+
+
+<div class='container'>
+  <div class='row'>
+    <table class='table table-bordered'>
+      <thead class="thead-dark">
+        <tr>
+          <th>顧客No.</th>
+          <th>姓</th>
+          <th>名</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @customer.each do |customer| %>
+        <tr>
+          <td><%= link_to customer.id, customer_path(customer.id) %></td>
+          <td><%= customer.first_name %></td>
+          <td><%= customer.last_name %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>

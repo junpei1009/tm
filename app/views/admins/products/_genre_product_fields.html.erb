@@ -1,7 +1,6 @@
 <div class="nested-fields form-inline">
+  <%= f.collection_select :genre_id, Genre.all, :id, :genre_name %>
   <div class="form-group">
-    <%= f.label :genre_name, "ジャンル名" %>
-    <%= f.text_field :genre_name, class:"input-default" %><br>
     <%= link_to_remove_association "ジャンルを削除", f, class: "remove-link" %>
   </div>
 </div>
